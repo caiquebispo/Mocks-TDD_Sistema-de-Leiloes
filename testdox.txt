@@ -16,3 +16,6 @@ Avaliador (Caique\Mocks\Tests\Domain\Avaliador)
  [x] Avaliador deve ordenar os 3 lances with data set #2
  [x] Avaliador deve retornar os maiores lances disponiveis
 
+Ecerrador (Tests\Service\Ecerrador)
+ [x] Leiloes com mais de uma semana deve ser encerrados
+
