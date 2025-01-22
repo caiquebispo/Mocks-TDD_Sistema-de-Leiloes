@@ -2,7 +2,7 @@
 
 namespace Tests\Service;
 
-use Caique\Mocks\Dao\Leilao as DaoLeilao;
+use Caique\Mocks\Dao\Mocks\LeilaoDaoMock;
 use Caique\Mocks\Model\Leilao;
 use Caique\Mocks\Service\Encerrador;
 use DateTimeImmutable;
@@ -16,14 +16,14 @@ class EcerradorTest extends TestCase
         $fiat = new Leilao('Fiat Uno 0km', new DateTimeImmutable('8 days ago'));
         $porsche = new Leilao('Porsche 911 Turbo', new DateTimeImmutable('10 days ago'));
 
-        $dao = new DaoLeilao();
+        $dao = new LeilaoDaoMock();
         $dao->salva($fiat);
         $dao->salva($porsche);
 
-        $finalizador = new Encerrador();
+        $finalizador = new Encerrador($dao);
         $finalizador->encerra();
 
-        $leiloes = $dao->recuperarFinalizados(true);
+        $leiloes = $dao->recuperarFinalizados();
 
         $this->assertCount(2, $leiloes);
         $this->assertEquals('Fiat Uno 0km', $leiloes[0]->recuperarDescricao());
