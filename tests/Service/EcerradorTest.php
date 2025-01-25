@@ -21,6 +21,9 @@ class EcerradorTest extends TestCase
         $dao->method('recuperarNaoFinalizados')->willReturn([$fiat, $porsche]);
         $dao->method('recuperarFinalizados')->willReturn([$fiat, $porsche]);
 
+        $dao->expects($this->exactly(2))->method('atualiza')
+            ->withConsecutive([$fiat], [$porsche]);
+
 
         $finalizador = new Encerrador($dao);
         $finalizador->encerra();
